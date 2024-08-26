@@ -24,7 +24,8 @@ RUN pacman -S \
         xdg-utils \
         nano \
         fish \
-        yad \
+        # fastfetch
+        # yad \
         xdg-user-dirs \
         xdotool \
         xorg-xwininfo \
