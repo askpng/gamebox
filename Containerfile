@@ -23,7 +23,6 @@ RUN pacman -S \
         xdg-desktop-portal-gnome \
         xdg-utils \
         nano \
-        fastfetch \
         fish \
         yad \
         xdg-user-dirs \
