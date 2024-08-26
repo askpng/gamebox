@@ -1,6 +1,6 @@
 FROM ghcr.io/ublue-os/arch-distrobox AS gamebox
 
-COPY system_files /
+COPY tmp /
 
 # Install needed packages
 RUN pacman -S \
