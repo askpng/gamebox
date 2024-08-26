@@ -7,7 +7,6 @@ RUN pacman -S \
         lib32-vulkan-radeon \
         libva-mesa-driver \
         vulkan-mesa-layers \
-        vulkan-icd-loader \
         lib32-vulkan-mesa-layers \
         lib32-libnm \
         openal \
@@ -29,7 +28,6 @@ RUN pacman -S \
         yad \
         xdg-user-dirs \
         xdotool \
-        xeyes \
         xorg-xwininfo \
         wmctrl \
         wxwidgets-gtk3 \
