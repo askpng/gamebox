@@ -102,9 +102,6 @@ jobs:
           labels: |
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
-            org.opencontainers.image.description=These images are not meant to be used as a host operating system. Please see bazzite-desktop for more information.
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/bazzite-arch/main/README.md
-            io.artifacthub.package.logo-url=https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/logo.png
 
       # Build image using Buildah action
       - name: Build Image
@@ -155,7 +152,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.5.0
+      - uses: sigstore/cosign-installer@v3.6.0
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
