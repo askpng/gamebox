@@ -24,7 +24,7 @@ RUN pacman -S \
         xdg-utils \
         nano \
         fish \
-        fastfetch
+        fastfetch \
         yad \
         xdg-user-dirs \
         xdotool \
