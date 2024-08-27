@@ -24,8 +24,8 @@ RUN pacman -S \
         xdg-utils \
         nano \
         fish \
-        # fastfetch
-        # yad \
+        fastfetch
+        yad \
         xdg-user-dirs \
         xdotool \
         xorg-xwininfo \
@@ -86,6 +86,11 @@ RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop && \
     rm -rf \
         /tmp/* \
         /var/cache/pacman/pkg/*
+
+# Remove paru
+RUN pacman -Rns \
+    paru \
+    --noconfirm
 
 # Cleanup
 RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
