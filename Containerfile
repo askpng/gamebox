@@ -70,6 +70,8 @@ RUN paru -S \
         aur/lib32-gperftools \
         aur/steamcmd \
         aur/yay \
+        aur/hatt-bin \
+        aur/megabasterd-bin \
         --noconfirm
 USER root
 WORKDIR /
