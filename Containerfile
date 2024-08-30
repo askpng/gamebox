@@ -5,7 +5,7 @@ COPY tmp /
 # Install reflector & update mirrors
 RUN pacman -S reflector --noconfirm
 
-RUN reflector --protocol https --sort rate --latest 10 --download-timeout 3 --save /etc/pacman.d/mirrorlist
+RUN reflector --verbose --protocol https --sort rate --latest 10 --download-timeout 3 --save /etc/pacman.d/mirrorlist
 
 # Install needed packages
 RUN pacman -S \
@@ -49,6 +49,7 @@ RUN pacman -S \
         lutris \
         mangohud \
         lib32-mangohud \
+        gamescope \
         goverlay \
         mesa-demos \
         vulkan-tools \
