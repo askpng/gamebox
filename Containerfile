@@ -45,6 +45,7 @@ RUN pacman -S \
         starship \
         --noconfirm && \
     pacman -S \
+        deluge \
         steam \
         lutris \
         mangohud \
@@ -75,7 +76,6 @@ RUN paru -S \
         aur/lib32-obs-vkcapture-git \
         aur/lib32-gperftools \
         aur/steamcmd \
-        aur/yay \
         aur/hatt-bin \
         aur/megabasterd-bin \
         --noconfirm
