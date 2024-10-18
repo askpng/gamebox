@@ -1,7 +1,7 @@
 name: Build gamebox
 on:
   schedule:
-    - cron: '0 17 * * 4'  # 17:00 on Thursdays
+    - cron: '0 17 10 * *'  # 17:00 on Thursdays
   pull_request:
     branches:
       - main
