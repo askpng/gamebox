@@ -11,6 +11,7 @@ RUN reflector --verbose --protocol https --sort rate --latest 5 --download-timeo
 RUN pacman -S \
         lib32-vulkan-radeon \
         libva-mesa-driver \
+        intel-media-driver \
         vulkan-mesa-layers \
         lib32-vulkan-mesa-layers \
         lib32-libnm \
@@ -45,7 +46,6 @@ RUN pacman -S \
         starship \
         --noconfirm && \
     pacman -S \
-        deluge \
         steam \
         lutris \
         mangohud \
@@ -76,8 +76,6 @@ RUN paru -S \
         aur/lib32-obs-vkcapture-git \
         aur/lib32-gperftools \
         aur/steamcmd \
-        aur/hatt-bin \
-        aur/megabasterd-bin \
         --noconfirm
 USER root
 WORKDIR /
