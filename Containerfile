@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/arch-distrobox AS gamebox
+FROM quay.io/toolbx/arch-toolbox AS gamebox
 
 COPY tmp /
 
