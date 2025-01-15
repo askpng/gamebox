@@ -1,13 +1,36 @@
 FROM quay.io/toolbx/arch-toolbox AS gamebox
 
-COPY tmp /
+COPY files /
+
+# Pacman init & Build user
+RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
+    printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" | tee -a /etc/pacman.conf && \
+    sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
+    pacman-key --init && pacman-key --populate && \
+    pacman -Syu --noconfirm && \
+    useradd -m --shell=/bin/bash build && usermod -L build && \
+    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Install reflector & update mirrors
-RUN pacman -S reflector --noconfirm
-
-RUN reflector --verbose --protocol https --sort rate --latest 5 --download-timeout 5 --save /etc/pacman.d/mirrorlist
+# RUN pacman -S reflector --noconfirm
+# RUN reflector --verbose --protocol https --sort rate --latest 5 --download-timeout 5 --save /etc/pacman.d/mirrorlist
 
 # Install needed packages
+RUN pacman -S --needed \
+        git \
+        base-devel \
+        --noconfirm
+
+# execs        
+RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
+        cp /tmp/distrobox/distrobox-host-exec /usr/bin/distrobox-host-exec && \
+        ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
+        wget https://github.com/1player/host-spawn/releases/download/$(cat /tmp/distrobox/distrobox-host-exec | grep host_spawn_version= | cut -d "\"" -f 2)/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
+        chmod +x /usr/bin/host-spawn && \
+        rm -drf /tmp/distrobox        
+
+# packages        
 RUN pacman -S \
         lib32-vulkan-radeon \
         libva-mesa-driver \
@@ -59,11 +82,6 @@ RUN pacman -S \
         sed -i 's@"dxvk.conf"@"/usr/share/latencyflex/dxvk.conf"@g' /usr/bin/latencyflex && \
         chmod +x /usr/bin/latencyflex
         # Steam/Lutris/Wine installed separately so they use the dependencies above and don't try to install their own.
-
-# Create build user
-RUN useradd -m --shell=/bin/bash build && usermod -L build && \
-    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Install AUR packages
 USER build
