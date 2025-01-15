@@ -83,9 +83,13 @@ RUN pacman -S \
         chmod +x /usr/bin/latencyflex
         # Steam/Lutris/Wine installed separately so they use the dependencies above and don't try to install their own.
 
-# Install AUR packages
+# Install paru & AUR packages
 USER build
 WORKDIR /home/build
+RUN git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+    rm -drf ../paru
 RUN paru -S \
         aur/protontricks \
         aur/vkbasalt \
