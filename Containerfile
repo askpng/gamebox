@@ -1,36 +1,16 @@
 FROM quay.io/toolbx/arch-toolbox AS gamebox
 
-COPY files /
+COPY scripts /tmp/scripts
 
-# Pacman init & Build user
-RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
-    printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" | tee -a /etc/pacman.conf && \
-    sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
-    pacman-key --init && pacman-key --populate && \
-    pacman -Syu --noconfirm && \
-    useradd -m --shell=/bin/bash build && usermod -L build && \
-    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-# Install reflector & update mirrors
-# RUN pacman -S reflector --noconfirm
-# RUN reflector --verbose --protocol https --sort rate --latest 5 --download-timeout 5 --save /etc/pacman.d/mirrorlist
+# Pacman init & build user
+RUN bash /tmp/scripts/init.sh
 
 # Install needed packages
 RUN pacman -S --needed \
         git \
         base-devel \
         --noconfirm
-
-# execs        
-RUN git clone https://github.com/89luca89/distrobox.git --single-branch /tmp/distrobox && \
-        cp /tmp/distrobox/distrobox-host-exec /usr/bin/distrobox-host-exec && \
-        ln -s /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
-        wget https://github.com/1player/host-spawn/releases/download/$(cat /tmp/distrobox/distrobox-host-exec | grep host_spawn_version= | cut -d "\"" -f 2)/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
-        chmod +x /usr/bin/host-spawn && \
-        rm -drf /tmp/distrobox        
-
-# packages        
+        
 RUN pacman -S \
         lib32-vulkan-radeon \
         libva-mesa-driver \
@@ -50,12 +30,13 @@ RUN pacman -S \
         lib32-openal \
         xdg-desktop-portal-gtk \
         xdg-desktop-portal-gnome \
+        xdg-user-dirs \
         xdg-utils \
         nano \
         fish \
         fastfetch \
         yad \
-        xdg-user-dirs \
+        xeyes \
         xdotool \
         xorg-xwininfo \
         wmctrl \
@@ -69,54 +50,38 @@ RUN pacman -S \
         starship \
         --noconfirm && \
     pacman -S \
+        mesa \
+        vulkan-intel \
+        intel-media-driver \
+        vulkan-radeon \
+        vulkan-tools \
+        mesa-demos \
+        --noconfirm && \
+    pacman -S \
         steam \
         lutris \
+        # Steam/Lutris installed separately so they use the dependencies above and don't try to install their own.
         mangohud \
         lib32-mangohud \
         gamescope \
         goverlay \
-        mesa-demos \
-        vulkan-tools \
         --noconfirm && \
         wget https://raw.githubusercontent.com/Shringe/LatencyFleX-Installer/main/install.sh -O /usr/bin/latencyflex && \
         sed -i 's@"dxvk.conf"@"/usr/share/latencyflex/dxvk.conf"@g' /usr/bin/latencyflex && \
         chmod +x /usr/bin/latencyflex
-        # Steam/Lutris/Wine installed separately so they use the dependencies above and don't try to install their own.
-
-# Install paru & AUR packages
-USER build
-WORKDIR /home/build
-RUN git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si
-    rm -drf ../paru
-RUN paru -S \
-        aur/protontricks \
-        aur/vkbasalt \
-        aur/lib32-vkbasalt \
-        aur/obs-vkcapture-git \
-        aur/lib32-obs-vkcapture-git \
-        aur/lib32-gperftools \
-        aur/steamcmd \
+    pacman -S \
+        paru \
+        protontricks \
+        vkbasalt \
+        lib32-vkbasalt \
+        obs-vkcapture-git \
+        lib32-obs-vkcapture-git \
+        lib32-gperftools \
+        steamcmd \
+        vesktop \
         --noconfirm
-USER root
-WORKDIR /
+
+COPY files /
 
 # Cleanup
-# Native march & tune. This is a gaming image and not something a user is going to compile things in with the intent to share.
-# We do this last because it'll only apply to updates the user makes going forward. We don't want to optimize for the build host's environment.
-RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop && \
-    sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
-    userdel -r build && \
-    rm -drf /home/build && \
-    sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-    sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-    rm -rf \
-        /tmp/* \
-        /var/cache/pacman/pkg/*
-
-# Cleanup
-RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
-    rm -rf \
-        /tmp/* \
-        /var/cache/pacman/pkg/*
+RUN bash /tmp/scripts/cleanup.sh
