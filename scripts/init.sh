@@ -12,9 +12,11 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf && \
 pacman-key --init && pacman-key --populate archlinux
 
 # Install Chaotic-AUR keyring and mirrorlist
-curl -fsSL https://raw.githubusercontent.com/Chaotic-AUR/Chaotic-AUR/master/chaotic-keyring/chaotic-keyring.pkg.tar.zst -o /tmp/chaotic-keyring.pkg.tar.zst && \
+curl -fsSL 
+https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst -o /tmp/chaotic-keyring.pkg.tar.zst && \
     pacman -U --noconfirm /tmp/chaotic-keyring.pkg.tar.zst && \
-    curl -fsSL https://raw.githubusercontent.com/Chaotic-AUR/Chaotic-AUR/master/chaotic-mirrorlist/chaotic-mirrorlist.pkg.tar.zst -o /tmp/chaotic-mirrorlist.pkg.tar.zst && \
+    curl -fsSL 
+https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst -o /tmp/chaotic-mirrorlist.pkg.tar.zst && \
     pacman -U --noconfirm /tmp/chaotic-mirrorlist.pkg.tar.zst && \
     rm -f /tmp/chaotic-keyring.pkg.tar.zst /tmp/chaotic-mirrorlist.pkg.tar.zst
 
