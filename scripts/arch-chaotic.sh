@@ -2,7 +2,7 @@
 
 set -oue pipefail
 
-sudo pacman -Syu git base-devel
+sudo pacman -Syu git base-devel --noconfirm
 
 sed -i 's/#Color/Color/g' /etc/pacman.conf && \
     printf "[multilib]\nInclude = /etc/pacman.d/mirrorlist\n" | tee -a /etc/pacman.conf && \
