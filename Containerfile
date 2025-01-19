@@ -2,28 +2,95 @@ FROM quay.io/toolbx/arch-toolbox AS gamebox
 
 COPY scripts /tmp/scripts
 
-# Pacman init & build user
-RUN bash /tmp/scripts/init.sh
+# Pacman init
+RUN pacman-key --init
 
-# Install yq
-# RUN pacman -S git base-devel yq --noconfirm
+# Append multilib to pacman.conf
+RUN sed -i '87i [multilib]\nInclude = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+
+# Update pacman database
+RUN pacman -Syy
 
 # Install packages
-# COPY packages /tmp/packages
+RUN pacman -S --needed \
+        git \
+        base-devel \
+        --noconfirm
+             
+RUN pacman -S \
+        lib32-vulkan-radeon \
+        libva-mesa-driver \
+        intel-media-driver \
+        vulkan-mesa-layers \
+        lib32-vulkan-mesa-layers \
+        lib32-libnm \
+        openal \
+        pipewire \
+        pipewire-pulse \
+        pipewire-alsa \
+        pipewire-jack \
+        wireplumber \
+        lib32-pipewire \
+        lib32-pipewire-jack \
+        lib32-libpulse \
+        lib32-openal \
+        libnotify \
+        xdg-desktop-portal-gtk \
+        xdg-desktop-portal-gnome \
+        xdg-user-dirs \
+        xdg-utils \
+        nano \
+        fish \
+        fastfetch \
+        yad \
+        xeyes \
+        xdotool \
+        xorg-xwininfo \
+        wmctrl \
+        wxwidgets-gtk3 \
+        libbsd \
+        noto-fonts-cjk \
+        glibc-locales \
+        atuin \
+        starship \
+        --noconfirm && \
+    pacman -S \
+        mesa \
+        vulkan-intel \
+        intel-media-driver \
+        vulkan-radeon \
+        vulkan-tools \
+        mesa-demos \
+        --noconfirm && \
+    pacman -S \
+        steam \
+        lutris \
+        mangohud \
+        lib32-mangohud \
+        gamescope \
+        goverlay \
+        --noconfirm && \
+        wget https://raw.githubusercontent.com/Shringe/LatencyFleX-Installer/main/install.sh -O /usr/bin/latencyflex && \
+        sed -i 's@"dxvk.conf"@"/usr/share/latencyflex/dxvk.conf"@g' /usr/bin/latencyflex && \
+        chmod +x /usr/bin/latencyflex
 
-# Install packages from YAML files
-#RUN for file in /tmp/packages/*.yml; do \
-#        packages=$(yq eval '.packages | join(" ")' "$file"); \
-#        pacman -S --needed $packages --noconfirm; \
-#    done
+# Pacman & nano configs
+RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
+        sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
+        sudo sed -i 's/# set autoindent/set autoindent/g; s/# set linenumbers/set linenumbers/g; s/# set magic/set magic/g; s/# set softwrap/set softwrap/g; s|# include /usr/share/nano/*.nanorc|include /usr/share/nano/*.nanorc|g' /etc/nanorc
 
-# Install packages via packages.sh
-RUN bash /tmp/scripts/packages.sh
+# Clean up temporary files and caches
+RUN rm -rf /tmp/* /var/cache/pacman/pkg/* && \
+        pacman -Rns $(pacman -Qdtq) --noconfirm && \
+        pacman -Scc --noconfirm
+
+# Clean up Steam desktop entry
+RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
+
+# Modify makepkg.conf for architecture optimization
+RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf
 
 COPY files /
 
-# Distrobox config
-RUN bash /tmp/scripts/distrobox/distrobox-config.sh
-
-# Cleanup
-RUN bash /tmp/scripts/cleanup.sh
+# Clean up any unnecessary files
+RUN rm -rf /var/log/* /root/.bash_history /root/.gitconfig /tmp/*

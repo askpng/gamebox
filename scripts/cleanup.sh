@@ -5,7 +5,7 @@ set -oue pipefail
 pacman -S --noconfirm vesktop
 
 # Clean up temporary files and caches
-rm -rf /tmp/* /var/cache/pacman/pkg/* /home/build/paru
+rm -rf /tmp/* /var/cache/pacman/pkg/*
 
 # Remove unused dependencies and clean pacman cache
 pacman -Rns $(pacman -Qdtq) --noconfirm

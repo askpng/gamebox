@@ -6,7 +6,7 @@ RUN pacman -S --needed \
         git \
         base-devel \
         --noconfirm
-        
+             
 RUN pacman -S \
         lib32-vulkan-radeon \
         libva-mesa-driver \

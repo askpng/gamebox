@@ -41,7 +41,3 @@ pacman -Syy
 # mkdir -p ~/.steam
 # distrobox-export --bin /usr/bin/steamcmd --export-path ~/.steam
 # mv ~/.steam/steamcmd ~/.steam/steamcmd.sh
-
-# Add user and configure sudo permissions
-useradd -m --shell=/bin/bash build && usermod -L build && \
-    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
