@@ -32,5 +32,5 @@ fi
 # Clean up any unnecessary files
 rm -rf /var/log/* /root/.bash_history /root/.gitconfig
 
-# Clean up /tmp/scripts
-rm -rf /tmp/scripts
+# Clean up /tmp/
+rm -rf /tmp/*

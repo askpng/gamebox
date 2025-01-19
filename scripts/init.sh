@@ -6,14 +6,14 @@ set -oue pipefail
 pacman-key --init
 
 # Chaotic-AUR
-pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
-pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+# pacman -U 'https://geo-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
+# pacman -U 'https://geo-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 
 # Append multilib to pacman.conf
 sed -i '87i [multilib]\nInclude = /etc/pacman.d/mirrorlist' /etc/pacman.conf
 
 # Append Chaotic-AUR pacman.conf
-sed -i '96i [chaotic-aur]\nSigLevel = Never\nInclude = /etc/pacman.d/chaotic-mirrorlist' /etc/pacman.conf
+# sed -i '96i [chaotic-aur]\nSigLevel = Never\nInclude = /etc/pacman.d/chaotic-mirrorlist' /etc/pacman.conf
 
 # Color in pacman.conf
 sed -i 's/#Color/Color/g' /etc/pacman.conf
@@ -25,10 +25,7 @@ sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf
 pacman -Syy
 
 # Install paru
-pacman -S paru --noconfirm
-
-# Install steamcmd and Vesktop
-paru -S steamcmd vesktop --noconfirm
+# pacman -S paru --noconfirm
 
 # Exports
 
