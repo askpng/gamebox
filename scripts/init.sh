@@ -44,4 +44,4 @@ pacman -Syy
 
 # Add user and configure sudo permissions
 useradd -m --shell=/bin/bash build && usermod -L build && \
-    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
