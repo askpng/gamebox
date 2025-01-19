@@ -17,7 +17,7 @@ RUN pacman -S --needed \
         base-devel \
         --noconfirm
              
-RUN pacman -S \
+RUN pacman -S --needed \
         lib32-vulkan-radeon \
         libva-mesa-driver \
         intel-media-driver \
@@ -43,7 +43,7 @@ RUN pacman -S \
         fish \
         fastfetch \
         yad \
-        xeyes \
+        xorg-xeyes \
         xdotool \
         xorg-xwininfo \
         wmctrl \
@@ -54,7 +54,7 @@ RUN pacman -S \
         atuin \
         starship \
         --noconfirm && \
-    pacman -S \
+    pacman -S --needed \
         mesa \
         vulkan-intel \
         intel-media-driver \
@@ -62,7 +62,7 @@ RUN pacman -S \
         vulkan-tools \
         mesa-demos \
         --noconfirm && \
-    pacman -S \
+    pacman -S --needed \
         steam \
         lutris \
         mangohud \
