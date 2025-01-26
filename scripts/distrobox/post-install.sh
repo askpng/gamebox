@@ -4,17 +4,15 @@ set -oue pipefail
 
 # Distrobox setup
 
-git clone --single-branch https://github.com/89luca89/distrobox.git /tmp/distrobox && \
-    cp /tmp/distrobox/distrobox-host-exec /usr/bin/ && \
-    ln -sf /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
+ln -sf /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
     ln -sf /usr/bin/xdg-open /usr/bin/distrobox-xdg-open && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/conmon && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/podman
 
-HOST_SPAWN_VERSION=$(grep -oP 'host_spawn_version="\K[^"]+' /tmp/distrobox/distrobox-host-exec)
-wget -q https://github.com/1player/host-spawn/releases/download/$HOST_SPAWN_VERSION/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
-    chmod +x /usr/bin/host-spawn
+# HOST_SPAWN_VERSION=$(grep -oP 'host_spawn_version="\K[^"]+' /tmp/distrobox/distrobox-host-exec)
+# wget -q https://github.com/1player/host-spawn/releases/download/$HOST_SPAWN_VERSION/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
+#     chmod +x /usr/bin/host-spawn
 
 rm -rf /tmp/distrobox/distrobox
 
@@ -37,14 +35,14 @@ sudo pacman -S --needed paru --noconfirm
 # paru BottomUp
 sudo sed -i 's/#BottomUp/BottomUp/g' /etc/paru.conf
 # Install packages
-paru -S --needed steamcmd vesktop --noconfirm
+paru -S --needed steamcmd vesktop steam --noconfirm
 # nanorc config
 # sudo sed -i 's/# set autoindent/set autoindent/g; s/# set linenumbers/set linenumbers/g; s/# set magic/set magic/g; s/# set softwrap/set softwrap/g; s|# include /usr/share/nano/*.nanorc|include /usr/share/nano/*.nanorc|g' /etc/nanorc
 # Install steamcmd & Vesktop
-paru -S --needed steamcmd vesktop steam --noconfirm
+# paru -S --needed steamcmd vesktop --noconfirm
 
 ## Steam
-sudo sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
+# sudo sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
 ## Vesktop
 VESKTOP_DESKTOP_FILE="/usr/share/applications/vesktop.desktop"
 if [[ -f "$VESKTOP_DESKTOP_FILE" ]]; then
