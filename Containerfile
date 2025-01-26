@@ -53,6 +53,7 @@ RUN pacman -S --needed \
         glibc-locales \
         atuin \
         starship \
+        tealdeer \
         --noconfirm && \
     pacman -S --needed \
         mesa \
@@ -69,10 +70,7 @@ RUN pacman -S --needed \
         lib32-mangohud \
         gamescope \
         goverlay \
-        --noconfirm && \
-        wget https://raw.githubusercontent.com/Shringe/LatencyFleX-Installer/main/install.sh -O /usr/bin/latencyflex && \
-        sed -i 's@"dxvk.conf"@"/usr/share/latencyflex/dxvk.conf"@g' /usr/bin/latencyflex && \
-        chmod +x /usr/bin/latencyflex
+        --noconfirm
 
 # Pacman & nano configs
 RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
