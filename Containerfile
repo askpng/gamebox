@@ -7,7 +7,7 @@ COPY scripts /tmp/scripts
 RUN pacman-key --init
 
 # Append multilib to pacman.conf
-RUN sed -i '87i [multilib]\nInclude = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+# RUN sed -i '87i [multilib]\nInclude = /etc/pacman.d/mirrorlist' /etc/pacman.conf
 
 # Update pacman database
 RUN pacman -Syy
