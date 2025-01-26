@@ -91,8 +91,9 @@ USER build
 WORKDIR /home/build
 RUN paru -S \
         aur/steamcmd \
-        aur/discord-linux-rich-presence \
+        aur/linux-discord-rich-presence \
         aur/vesktop-bin \
+        aur/hatt-bin \
         --noconfirm
 
 # Clean up temporary files and caches
