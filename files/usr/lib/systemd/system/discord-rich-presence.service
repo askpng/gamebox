@@ -1,0 +1,14 @@
+[Unit]
+Description=Discord Rich Presence Service
+
+[Service]
+Type=simple
+[Unit]
+Description=Discord Rich Presence Service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/linux-discord-rich-presence -c %h/.config/linux-discord-rich-presencerc
+
+[Install]
+WantedBy=default.target
