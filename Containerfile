@@ -1,4 +1,5 @@
-FROM quay.io/toolbx/arch-toolbox AS gamebox
+# FROM quay.io/toolbx/arch-toolbox AS gamebox
+FROM ghcr.io/ublue-os/arch-distrobox AS gamebox
 
 COPY scripts /tmp/scripts
 
@@ -54,6 +55,9 @@ RUN pacman -S --needed \
         atuin \
         starship \
         tealdeer \
+        rust \
+        zenity \
+        electron \
         --noconfirm && \
     pacman -S --needed \
         mesa \
@@ -77,6 +81,20 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
         sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
         sudo sed -i 's/# set autoindent/set autoindent/g; s/# set linenumbers/set linenumbers/g; s/# set magic/set magic/g; s/# set softwrap/set softwrap/g; s|# include /usr/share/nano/*.nanorc|include /usr/share/nano/*.nanorc|g' /etc/nanorc
 
+# Create build user
+RUN useradd -m --shell=/bin/bash build && usermod -L build && \
+    echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    echo "root ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Install AUR packages
+USER build
+WORKDIR /home/build
+RUN paru -S \
+        aur/steamcmd \
+        aur/discord-linux-rich-presence \
+        aur/vesktop-bin \
+        --noconfirm
+
 # Clean up temporary files and caches
 # RUN rm -rf /tmp/* /var/cache/pacman/pkg/* && \
 #         pacman -Rns $(pacman -Qdtq) --noconfirm && \
@@ -86,9 +104,20 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
 RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
 
 # Modify makepkg.conf for architecture optimization
-RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf
 
 COPY files /
 
 # Clean up any unnecessary files
-RUN rm -rf /var/log/* /root/.bash_history /root/.gitconfig /tmp/*
+RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
+        userdel -r build && \
+        rm -drf /home/build && \
+        sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
+        sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
+        rm -rf /home/build/.cache/* && \
+        rm -rf \
+            /tmp/* \
+            /var/cache/pacman/pkg/* \
+            /var/log/* \
+            /root/.bash_history \
+            /root/.gitconfig \
+            /tmp/*
