@@ -1,13 +1,15 @@
 name: Build gamebox
 on:
   schedule:
-    - cron: '00 00 1 * *' # 00:00 on the 1st day of every month
+    - cron: '10 00 1 * *' # 00:10 on the 1st day of every month
   pull_request:
     branches:
       - main
     paths-ignore:
       - '**.md'
       - '**.txt'
+      - '**.yml'
+      - '**.sh'
   pull_request_review:
     type: [submitted]
   push:
@@ -16,6 +18,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.txt'
+      - '**.yml'
+      - '**.sh'
   merge_group:
   workflow_dispatch:
 env:
