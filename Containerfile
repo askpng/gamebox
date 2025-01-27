@@ -1,17 +1,18 @@
 # FROM quay.io/toolbx/arch-toolbox AS gamebox
 FROM ghcr.io/askpng/box AS gamebox
-
-COPY scripts /tmp/scripts
-             
+           
 RUN pacman -S --needed \
         libbsd \
+        rust \
         wmctrl \
         wxwidgets-gtk3 \
         xorg-xwininfo \
+        zenity \
         --noconfirm && \
     pacman -S --needed \
         celluloid \
         gamescope \
+        gnu-free-fonts \
         goverlay \
         lutris \
         lib32-mangohud \
