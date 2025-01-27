@@ -109,8 +109,7 @@ RUN paru -S \
 COPY files /
 
 # Clean up any unnecessary files
-RUN sed -i 's/-march=x86-64 -mtune=generic/-march=native -mtune=native/g' /etc/makepkg.conf && \
-        userdel -r build && \
+RUN userdel -r build && \
         rm -drf /home/build && \
         sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
         sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
