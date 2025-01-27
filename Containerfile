@@ -15,14 +15,15 @@ RUN pacman -S --needed \
         zenity \
         --noconfirm && \
     pacman -S --needed \
-        steam \
+        celluloid \
+        gamescope \
+        goverlay \
         lutris \
         lib32-mangohud \
         mangohud \
-        gamescope \
-        goverlay \
-        vulkan-tools \
         mesa-demos \
+        steam \
+        vulkan-tools \
         --noconfirm
 
 # Create build user
@@ -50,14 +51,7 @@ RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop && \
 
 # Clean up any unnecessary files
 RUN userdel -r build && \
-        rm -drf /home/build && \
-        sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-        sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-        rm -rf \
-            /home/build/.cache/*
-            /tmp/* \
-            /var/cache/pacman/pkg/* \
-            /var/log/* \
-            /root/.bash_history \
-            /root/.gitconfig \
-            /tmp/*
+    rm -drf /home/build && \
+    sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
+    sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
+    rm -rf /tmp/*
