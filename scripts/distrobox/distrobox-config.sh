@@ -10,11 +10,3 @@ git clone --single-branch https://github.com/89luca89/distrobox.git /tmp/distrob
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/conmon && \
     ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/podman
-
-# Download and set up host-spawn
-HOST_SPAWN_VERSION=$(grep -oP 'host_spawn_version="\K[^"]+' /tmp/distrobox/distrobox-host-exec)
-wget -q https://github.com/1player/host-spawn/releases/download/$HOST_SPAWN_VERSION/host-spawn-$(uname -m) -O /usr/bin/host-spawn && \
-    chmod +x /usr/bin/host-spawn
-
-# Clean up
-rm -rf /tmp/distrobox/distrobox
