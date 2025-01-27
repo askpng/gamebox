@@ -81,6 +81,9 @@ RUN sed -i 's/#Color/Color/g' /etc/pacman.conf && \
         sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/g' /etc/makepkg.conf && \
         sudo sed -i 's/# set autoindent/set autoindent/g; s/# set linenumbers/set linenumbers/g; s/# set magic/set magic/g; s/# set softwrap/set softwrap/g; s|# include /usr/share/nano/*.nanorc|include /usr/share/nano/*.nanorc|g' /etc/nanorc
 
+# Clean up Steam desktop entry
+RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
+
 # Create build user
 RUN useradd -m --shell=/bin/bash build && usermod -L build && \
     echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
@@ -100,9 +103,6 @@ RUN paru -S \
 # RUN rm -rf /tmp/* /var/cache/pacman/pkg/* && \
 #         pacman -Rns $(pacman -Qdtq) --noconfirm && \
 #         pacman -Scc --noconfirm
-
-# Clean up Steam desktop entry
-RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
 
 # Modify makepkg.conf for architecture optimization
 
