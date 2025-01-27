@@ -4,15 +4,10 @@ FROM ghcr.io/askpng/box AS gamebox
 COPY scripts /tmp/scripts
              
 RUN pacman -S --needed \
-        glibc-locales \
-        intel-media-driver \
         libbsd \
-        noto-fonts-cjk \
-        rust \
         wmctrl \
         wxwidgets-gtk3 \
         xorg-xwininfo \
-        zenity \
         --noconfirm && \
     pacman -S --needed \
         celluloid \
@@ -34,11 +29,14 @@ RUN useradd -m --shell=/bin/bash build && usermod -L build && \
 USER build
 WORKDIR /home/build
 RUN paru -S \
+        aur/adwsteamgtk \
         aur/hatt-bin \
         aur/linux-discord-rich-presence \
+        aur/megabasterd-bin \
+        aur/sgdboop-bin \
         aur/steamcmd \
         aur/steamtinkerlaunch \
-        aur/vesktop-bin \
+        aur/vesktop-electron \
         --noconfirm
 USER root
 WORKDIR /
