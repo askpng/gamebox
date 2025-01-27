@@ -24,8 +24,8 @@ mkdir -p $HOME/.steam && \
 
 For linux-discord-rich-presence, ensure to initially run:
 ```
-linux-discord-rich-presence -c ~/.config/linux-discord-rich-presencerc && \
-    disreobox-export --bin linux-discord-rich-preesence --export-path $HOME/.local/bin
+linux-discord-rich-presence -c ~/.config/linux-discord-rich-presencerc & \
+    distrobox-export --bin linux-discord-rich-preesence --export-path $HOME/.local/bin
 ```
 Then, create and enable the following service on your host:
 ```
