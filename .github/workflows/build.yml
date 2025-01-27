@@ -5,21 +5,15 @@ on:
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
-      - '**.txt'
-      - '**.yml'
-      - '**.sh'
+    paths:
+      - 'Containerfile'
   pull_request_review:
     type: [submitted]
   push:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
-      - '**.txt'
-      - '**.yml'
-      - '**.sh'
+    paths:
+      - 'Containerfile'
   merge_group:
   workflow_dispatch:
 env:
