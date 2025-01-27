@@ -53,10 +53,8 @@ RUN userdel -r build && \
         rm -drf /home/build && \
         sed -i '/build ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
         sed -i '/root ALL=(ALL) NOPASSWD: ALL/d' /etc/sudoers && \
-        rm -rf /home/build/.cache/* && \
-        pacman -Rns $(pacman -Qdtq) --noconfirm && \
-        pacman -Scc --noconfirm && \
         rm -rf \
+            /home/build/.cache/*
             /tmp/* \
             /var/cache/pacman/pkg/* \
             /var/log/* \
