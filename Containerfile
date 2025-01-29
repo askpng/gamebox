@@ -51,6 +51,7 @@ RUN pacman -S --needed \
         lib32-vulkan-icd-loader \
         sdl2 \
         lib32-sdl2 \
+        winetricks \
         --noconfirm
 
 # Create build user
