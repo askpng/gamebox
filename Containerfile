@@ -1,7 +1,7 @@
 # FROM quay.io/toolbx/arch-toolbox AS gamebox
 FROM ghcr.io/askpng/box AS gamebox
 
-RUN reflector --sort rate --save /etc/pacman.d/mirrorlist
+RUN reflector --verbose --sort rate --latest 10 --download-timeout 3
 
 RUN pacman -S --needed \
         libbsd \
@@ -54,6 +54,17 @@ RUN pacman -S --needed \
         sdl2 \
         lib32-sdl2 \
         winetricks \
+        vkd3d \
+        lib32-vkd3d \
+        gst-libav \
+        gst-plugins-bad \
+        gst-plugins-base \
+        gst-plugins-good \
+        gst-plugins-ugly \
+        lib32-gst-plugins-base \
+        lib32-gst-plugins-good \
+        gamemode \
+        lib32-gamemode \
         --noconfirm
 
 # Create build user
