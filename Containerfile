@@ -1,6 +1,8 @@
 # FROM quay.io/toolbx/arch-toolbox AS gamebox
 FROM ghcr.io/askpng/box AS gamebox
-           
+
+RUN reflector --sort rate --save /etc/pacman.d/mirrorlist
+
 RUN pacman -S --needed \
         libbsd \
         rust \
