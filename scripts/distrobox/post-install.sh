@@ -50,10 +50,10 @@ distrobox-export --app "steam"
 
 distrobox-export --app vesktop
 
-distrobox-export --bin /bin/glow --export-path $HOME/.local.bin
+distrobox-export --bin /bin/glow --export-path $HOME/.local/bin
 
-distrobox-export --bin /bin/tldr --export-path $HOME/.local.bin
+distrobox-export --bin /bin/tldr --export-path $HOME/.local/bin
 
-distrobox-export --bin /bin/pingu --export-path $HOME/.local.bin
+distrobox-export --bin /bin/pingu --export-path $HOME/.local/bin
 
-distrobox-export --bin /bin/eza --export-path $HOME/.local.bin
+distrobox-export --bin /bin/eza --export-path $HOME/.local/bin
