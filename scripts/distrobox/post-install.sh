@@ -24,7 +24,7 @@ if ! mv ~/.steam/steamcmd ~/.steam/steamcmd.sh; then
   exit 1
 fi
 
-echo "Successfully purged and recreated Steam files/directories"
+echo "Successfully purged and recreated Steam files/directories!"
 
 # Exports
 
@@ -49,9 +49,3 @@ distrobox-export --bin /bin/tldr --export-path $HOME/.local/bin
 distrobox-export --bin /bin/pingu --export-path $HOME/.local/bin
 
 distrobox-export --bin /bin/eza --export-path $HOME/.local/bin
-
-# Links
-
-sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/flatpak
-sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
-sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree
