@@ -42,6 +42,8 @@ distrobox-export --app "steam"
 
 distrobox-export --app vesktop
 
+distrobox-export --app SGDBoop
+
 distrobox-export --bin /bin/glow --export-path $HOME/.local/bin
 
 distrobox-export --bin /bin/tldr --export-path $HOME/.local/bin
