@@ -1,7 +1,7 @@
 # FROM quay.io/toolbx/arch-toolbox AS gamebox
 FROM ghcr.io/askpng/box AS gamebox
 
-RUN reflector --verbose --sort rate --latest 10 --download-timeout 3
+# RUN reflector --sort rate --latest 50 --save /etc/pacman.d/mirrorlist
 
 RUN pacman -S --needed \
         libbsd \
@@ -25,46 +25,15 @@ RUN pacman -S --needed \
         --noconfirm && \
     # winetricks    
     pacman -S --needed \
-        giflib \
-        lib32-giflib \
-        gnutls \
-        lib32-gnutls \
-        v4l-utils \
-        lib32-v4l-utils \
-        libpulse \
-        lib32-libpulse \
-        alsa-plugins \
-        lib32-alsa-plugins \
-        alsa-lib \
-        lib32-alsa-lib \
-        sqlite \
-        lib32-sqlite \
-        libxcomposite \
-        lib32-libxcomposite \
-        ocl-icd \
-        lib32-ocl-icd \
-        libva \
-        lib32-libva \
-        gtk3 \
-        lib32-gtk3 \
-        gst-plugins-base-libs \
-        lib32-gst-plugins-base-libs \
-        vulkan-icd-loader \
-        lib32-vulkan-icd-loader \
-        sdl2 \
-        lib32-sdl2 \
-        winetricks \
-        vkd3d \
-        lib32-vkd3d \
-        gst-libav \
-        gst-plugins-bad \
-        gst-plugins-base \
-        gst-plugins-good \
-        gst-plugins-ugly \
-        lib32-gst-plugins-base \
-        lib32-gst-plugins-good \
         gamemode \
         lib32-gamemode \
+        sdl2 \
+        lib32-sdl2 \
+        vkd3d \
+        lib32-vkd3d \
+        vulkan-icd-loader \
+        lib32-vulkan-icd-loader \
+        winetricks \
         --noconfirm
 
 # Create build user
