@@ -2,14 +2,6 @@
 
 set -oue pipefail
 
-# Links
-
-ln -sf /usr/bin/distrobox-host-exec /usr/bin/flatpak && \
-    ln -sf /usr/bin/xdg-open /usr/bin/distrobox-xdg-open && \
-    ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
-    ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/conmon && \
-    ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/podman
-
 # Steam preps
 
 if ! rm -drf ~/.steam .steampath .steampid; then
@@ -57,3 +49,9 @@ distrobox-export --bin /bin/tldr --export-path $HOME/.local/bin
 distrobox-export --bin /bin/pingu --export-path $HOME/.local/bin
 
 distrobox-export --bin /bin/eza --export-path $HOME/.local/bin
+
+# Links
+
+sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/flatpak
+sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
+sudo ln -sf /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree
