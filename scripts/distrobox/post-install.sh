@@ -54,7 +54,9 @@ distrobox-export --app vesktop
 
 distrobox-export --app SGDBoop
 
-distrobox-export --app protonplus
+distrobox-export --app "protonplus.desktop"
+
+distrobox-export --app "ryujinx"
 
 distrobox-export --bin /bin/glow --export-path $HOME/.local/bin
 
