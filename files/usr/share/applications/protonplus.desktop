@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Icon=com.vysp3r.ProtonPlus
+Name=ProtonPlus
+Name[en]=ProtonPlus
+Name[en_US]=ProtonPlus
+Name[en_US.UTF-8]=ProtonPlus
+Comment=Proton & wine manager
+Comment[en]=Proton & wine manager
+Comment[en_US]=Proton & wine manager
+Comment[en_US.UTF-8]=Proton & wine manager
+Keywords=game;gaming;lutris;proton;steam;wine
+Keywords[en]=game;gaming;lutris;proton;steam;wine
+Keywords[en_US]=game;gaming;lutris;proton;steam;wine
+Keywords[en_US.UTF-8]=game;gaming;lutris;proton;steam;wine
+Categories=Game
+Exec=/usr/bin/protonplus
+Hidden=false
+NoDisplay=false
+StartupNotify=false
+Terminal=false
