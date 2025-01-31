@@ -54,6 +54,8 @@ distrobox-export --app vesktop
 
 distrobox-export --app SGDBoop
 
+distrobox-export --app protonplus
+
 distrobox-export --bin /bin/glow --export-path $HOME/.local/bin
 
 distrobox-export --bin /bin/tldr --export-path $HOME/.local/bin
