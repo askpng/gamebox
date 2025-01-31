@@ -48,10 +48,12 @@ RUN paru -S \
         aur/hatt-bin \
         aur/linux-discord-rich-presence \
         aur/megabasterd-bin \
+        aur/protonplus \
         aur/sgdboop-bin \
         aur/steamcmd \
         aur/steamtinkerlaunch \
         aur/vesktop-electron \
+        aur/vkbasalt \
         --noconfirm
 USER root
 WORKDIR /
