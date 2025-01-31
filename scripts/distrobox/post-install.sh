@@ -4,6 +4,16 @@ set -oue pipefail
 
 # Steam preps
 
+if ! rm -drf ~/.config/steamtinkerlaunch; then
+  echo "Error: Failed to remove steamtinkerlaunch files/directories"
+  exit 1
+fi
+
+if ! rm -drf ~/.wine; then
+  echo "Error: Failed to remove .wine files/directories"
+  exit 1
+fi
+
 if ! rm -drf ~/.steam .steampath .steampid; then
   echo "Error: Failed to remove Steam files/directories"
   exit 1
