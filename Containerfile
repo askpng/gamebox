@@ -49,6 +49,7 @@ RUN paru -S \
         aur/linux-discord-rich-presence \
         aur/megabasterd-bin \
         aur/protonplus \
+        aur/ryujinx \
         aur/sgdboop-bin \
         aur/steamcmd \
         aur/steamtinkerlaunch \
