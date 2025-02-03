@@ -12,7 +12,6 @@ RUN pacman -S --needed \
         zenity \
         --noconfirm && \
     pacman -S --needed \
-        celluloid \
         gamescope \
         gnu-free-fonts \
         goverlay \
@@ -45,15 +44,11 @@ USER build
 WORKDIR /home/build
 RUN paru -S \
         aur/adwsteamgtk \
-        aur/hatt-bin \
-        aur/linux-discord-rich-presence \
-        aur/megabasterd-bin \
         aur/protonplus \
         aur/ryujinx \
         aur/sgdboop-bin \
         aur/steamcmd \
         aur/steamtinkerlaunch \
-        aur/vesktop-electron \
         aur/vkbasalt \
         --noconfirm
 USER root
@@ -62,8 +57,7 @@ WORKDIR /
 COPY files /
 
 # Clean up Steam desktop entry
-RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop && \
-        sed -i '/^Exec=/s/$/ --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,WebRTCPipeWireCapturer --enable-gpu-rasterization --ignore-gpu-blocklist --enable-zero-copy/' "/usr/share/applications/vesktop.desktop"
+RUN sed -i 's@ (Runtime)@@g' /usr/share/applications/steam.desktop
 
 # Clean up any unnecessary files
 RUN userdel -r build && \
