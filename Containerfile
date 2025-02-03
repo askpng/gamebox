@@ -44,13 +44,14 @@ USER build
 WORKDIR /home/build
 RUN paru -S \
         aur/adwsteamgtk \
+        aur/discord_arch_electron \
         aur/gamescope-plus \
         aur/protonplus \
-        aur/ryujinx \
         aur/sgdboop-bin \
         aur/steamcmd \
         aur/steamtinkerlaunch \
         aur/vkbasalt \
+        aur/lib32-vkbasalt \
         --noconfirm
 USER root
 WORKDIR /
