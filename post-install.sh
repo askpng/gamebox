@@ -48,10 +48,9 @@ distrobox-export --bin /usr/bin/tldr
 distrobox-export --bin /usr/bin/pingu
 
 # Gamebox exports
-distrobox-export --app "/usr/share/applications.desktop/steam.desktop" -el none
-distrobox-export --app "/usr/share/applications.desktop/SGDBoop.desktop" -el none
+distrobox-export --app steam -el none
+distrobox-export --app SGDBoop -el none
 distrobox-export --app lutris -el none
-distrobox-export --app "/usr/share/applications.desktop/protonplus.desktop" -el none
-distrobox-export --app "/usr/share/applications.desktop/ryujinx.desktop" -el none
+distrobox-export --app protonplus -el none
 
 echo "Exports successful!"
