@@ -8,11 +8,11 @@ RUN pacman -S --needed \
         rust \
         wmctrl \
         wxwidgets-gtk3 \
+        xorg-xwayland \
         xorg-xwininfo \
         zenity \
         --noconfirm && \
     pacman -S --needed \
-        gamescope \
         gnu-free-fonts \
         goverlay \
         lutris \
@@ -44,6 +44,7 @@ USER build
 WORKDIR /home/build
 RUN paru -S \
         aur/adwsteamgtk \
+        aur/gamescope-plus \
         aur/protonplus \
         aur/ryujinx \
         aur/sgdboop-bin \
